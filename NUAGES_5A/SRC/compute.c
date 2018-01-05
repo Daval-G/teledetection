@@ -79,9 +79,9 @@ void ComputeImage(guchar *pucImaOrig,
             printf("%d\n", values[x * (NbCol - 2 * PRE) + y][7]);
             printf("%d\n", values[x * (NbCol - 2 * PRE) + y][8]);
 
-            for (int i = 0; i < 2 * PRE + 1; i++)
+            for (int i = 0; i < neigh_size; i++)
             {
-                for (int j = 0; j < 2 * PRE + 1; j++)
+                for (int j = 0; j < neigh_size; j++)
                 {
                     if (values[x * (NbCol - 2 * PRE) + y][i]
                       < values[x * (NbCol - 2 * PRE) + y][j])
