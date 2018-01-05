@@ -44,7 +44,25 @@ double treat_image(unsigned char **x_values, int size, int *lengths, int *labels
     if (labels[i] != label)
       x_values[i][0] = 0;
   }
-  return (double)lengths[NB_CLUSTERS - 1] / size * 100;
+  return (double)lengths[label] / size * 100;
+}
+
+int get_min(unsigned char **x_values, int size)
+{
+  int min = NB_POINTS * 256 * 256;
+  for (int i = 0; i < size; ++i)
+    if (x_values[i][0] < min)
+      min = x_values[i][0];
+  return min;
+}
+
+int get_max(unsigned char **x_values, int size)
+{
+  int max = 0;
+  for (int i = 0; i < size; ++i)
+    if (x_values[i][0] > max)
+      max = x_values[i][0];
+  return max;
 }
 
 
@@ -59,9 +77,11 @@ double k_means(unsigned char **x_values, int size, int max_iterations, double mi
       old_means[i] = malloc(NB_POINTS * sizeof(int));
     int *lengths = malloc(NB_CLUSTERS * sizeof(int));
     int nb_iterations = 0;
+    int min = get_min(x_values, size);
+    int max = get_max(x_values, size);
     for (int i = 0; i < NB_CLUSTERS; ++i)
       for (int j = 0; j < NB_POINTS; ++j)
-        means[i][j] = rand() % 256;
+        means[i][j] = min + max * i / NB_CLUSTERS;
     do
     {
       for(int i = 0; i < NB_CLUSTERS; ++i)
