@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-int NB_CLUSTERS = 5;
-int NB_POINTS = 5;
+#include "compute.h"
 
 int minimized_distances(int **means, int **old_means, double min_distance)
 {
@@ -64,7 +62,7 @@ double k_means(unsigned char **x_values, int size, int max_iterations, double mi
     int nb_iterations = 0;
     for (int i = 0; i < NB_CLUSTERS; ++i)
       for (int j = 0; j < NB_POINTS; ++j)
-        means[i][j] = rand() % 255;
+        means[i][j] = rand() % 256;
     do
     {
       for(int i = 0; i < NB_CLUSTERS; ++i)
