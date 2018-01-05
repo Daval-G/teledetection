@@ -14,7 +14,7 @@ DES FONCTIONS
 
   But:
 
-  Entrees: 
+  Entrees:
       --->le tableau des valeurs des pixels de l'image d'origine
           (les lignes sont mises les unes à la suite des autres)
       --->le nombre de lignes de l'image,
@@ -56,8 +56,11 @@ void ComputeImage(guchar *pucImaOrig,
             *(pucImaRes + iNumPix + iNumChannel) = ucMeanPix;
     }
 
+    int size = (NbCol - 2 * PRE) * (NbLine - 2 * PRE);
     int neigh_size = (2 * PRE + 1) * (2 * PRE + 1);
-    unsigned char values[(NbCol - 2 * PRE) * (NbLine - 2 * PRE)][neigh_size];
+    unsigned char **values = malloc(size * sizeof(unsigned char*));
+    for (int i = 0; i < size; ++i)
+      values[i] = malloc(neigh_size * sizeof(unsigned char));
     for (int x = 0; x < NbLine - 2 * PRE; x++)
     {
         for (int y = 0; y < NbCol - 2 * PRE; y++)
@@ -71,7 +74,7 @@ void ComputeImage(guchar *pucImaOrig,
                 for (int j = 0; j < neigh_size; j++)
                 {
                     if (values[x * (NbCol - 2 * PRE) + y][i]
-                      < values[x * (NbCol - 2 * PRE) + y][j])
+                      > values[x * (NbCol - 2 * PRE) + y][j])
                     {
                         unsigned char tmp        = values[x * (NbCol - 2 * PRE) + y][i];
                         values[x * (NbCol - 2 * PRE) + y][i] = values[x * (NbCol - 2 * PRE) + y][j];
@@ -81,4 +84,5 @@ void ComputeImage(guchar *pucImaOrig,
             }
         }
     }
+    printf("Clouds: %f%% \n", k_means(values, size, 1000, 1));
 }

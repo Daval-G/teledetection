@@ -42,8 +42,7 @@ double treat_image(unsigned char **x_values, int size, int *lengths, int *labels
   for (int i = 0; i < size; ++i)
   {
     if (labels[i] != label)
-      for (int j = 0; j < NB_POINTS; ++j)
-        x_values[i][j] = 0;
+      x_values[i][0] = 0;
   }
   return (double)lengths[NB_CLUSTERS - 1] / size * 100;
 }
@@ -107,7 +106,7 @@ double k_means(unsigned char **x_values, int size, int max_iterations, double mi
     return treat_image(x_values, size, lengths, labels, means);
 }
 
-int main()
+int test()
 {
   srand(time(NULL));
   int size = 50;
@@ -117,6 +116,6 @@ int main()
   for (int i = 0; i < size; ++i)
     for (int j = 0; j < NB_POINTS; ++j)
       x_values[i][j] = 255 / size * i;
-  printf("Clouds: %f%% \n", k_means(x_values, size, 1000, 0.01));
+  printf("Clouds: %f%% \n", k_means(x_values, size, 1000, 1));
   return 0;
 }
