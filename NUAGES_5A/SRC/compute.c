@@ -1,7 +1,6 @@
+#include "compute.h"
 #include <stdio.h>
 #include <gtk/gtk.h>
-
-#define PRE 1
 
 /*******************************************************
 IL EST FORMELLEMENT INTERDIT DE CHANGER LE PROTOTYPE
@@ -67,18 +66,6 @@ void ComputeImage(guchar *pucImaOrig,
                 for (int j = 0; j < 2 * PRE + 1; j++)
                     values[x * (NbCol - 2 * PRE) + y][i * (2 * PRE + 1) + j] = pucImaRes[(x + i) * NbCol + (y + j)];
 
-            printf("-----------\n");
-            printf("-----------\n");
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][0]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][1]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][2]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][3]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][4]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][5]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][6]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][7]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][8]);
-
             for (int i = 0; i < neigh_size; i++)
             {
                 for (int j = 0; j < neigh_size; j++)
@@ -92,17 +79,6 @@ void ComputeImage(guchar *pucImaOrig,
                     }
                 }
             }
-
-            printf("-----------\n");
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][0]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][1]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][2]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][3]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][4]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][5]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][6]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][7]);
-            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][8]);
         }
     }
 }
