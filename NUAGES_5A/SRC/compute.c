@@ -67,7 +67,7 @@ void ComputeImage(guchar *pucImaOrig,
         {
             for (int i = 0; i < 2 * PRE + 1; i++)
                 for (int j = 0; j < 2 * PRE + 1; j++)
-                    values[x * (NbCol - 2 * PRE) + y][i * (2 * PRE + 1) + j] = pucImaRes[(x + i) * NbCol + (y + j)];
+                    values[x * (NbCol - 2 * PRE) + y][i * (2 * PRE + 1) + j] = pucImaRes[3 * ((x + i) * NbCol + (y + j))];
 
             for (int i = 0; i < neigh_size; i++)
             {
@@ -84,5 +84,18 @@ void ComputeImage(guchar *pucImaOrig,
             }
         }
     }
-    printf("Clouds: %f%% \n", k_means(values, size, 1000, 1));
+    printf("Clouds: %.3f%% \n", k_means(values, size, 1000, 1));
+
+    for (int x = 0; x < NbLine - 2 * PRE; x++)
+    {
+        for (int y = 0; y < NbCol - 2 * PRE; y++)
+        {
+            if (values[x * (NbCol - 2 * PRE) + y][0] != 0)
+            {
+                pucImaRes[3 * ((x + PRE) * NbCol + (y + PRE))] = 0;
+                pucImaRes[3 * ((x + PRE) * NbCol + (y + PRE)) + 1] = 0;
+                pucImaRes[3 * ((x + PRE) * NbCol + (y + PRE)) + 2] = 0;
+            }
+        }
+    }
 }
