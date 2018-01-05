@@ -58,53 +58,51 @@ void ComputeImage(guchar *pucImaOrig,
     }
 
     int neigh_size = (2 * PRE + 1) * (2 * PRE + 1);
-    unsigned char values[(NbCol - 1) * (NbLine - 1)][neigh_size];
-    for (int x = PRE; x < NbLine - PRE; x++)
+    unsigned char values[(NbCol - 2 * PRE) * (NbLine - 2 * PRE)][neigh_size];
+    for (int x = 0; x < NbLine - 2 * PRE; x++)
     {
-        for (int y = PRE; y < NbCol - PRE; y++)
+        for (int y = 0; y < NbCol - 2 * PRE; y++)
         {
-            for (int i = -PRE; i <= PRE; i++)
-                for (int j = -PRE; j <= PRE; j++)
-                    values[(x - 1) * NbCol + (y - 1)][i * PRE + j] = pucImaRes[(x + i) * NbCol + (y + j)];
+            for (int i = 0; i < 2 * PRE + 1; i++)
+                for (int j = 0; j < 2 * PRE + 1; j++)
+                    values[x * (NbCol - 2 * PRE) + y][i * (2 * PRE + 1) + j] = pucImaRes[(x + i) * NbCol + (y + j)];
 
             printf("-----------\n");
             printf("-----------\n");
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][0]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][1]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][2]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][3]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][4]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][5]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][6]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][7]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][8]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][9]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][0]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][1]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][2]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][3]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][4]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][5]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][6]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][7]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][8]);
 
-            for (int i = 0; i < neigh_size; i++)
+            for (int i = 0; i < 2 * PRE + 1; i++)
             {
-                for (int j = 0; j < neigh_size; j++)
+                for (int j = 0; j < 2 * PRE + 1; j++)
                 {
-                    if (values[(x - 1) * NbCol + (y - 1)][i]
-                      < values[(x - 1) * NbCol + (y - 1)][j])
+                    if (values[x * (NbCol - 2 * PRE) + y][i]
+                      < values[x * (NbCol - 2 * PRE) + y][j])
                     {
-                        unsigned char tmp                    = values[(x - 1) * NbCol + (y - 1)][i];
-                        values[(x - 1) * NbCol + (y - 1)][i] = values[(x - 1) * NbCol + (y - 1)][j];
-                        values[(x - 1) * NbCol + (y - 1)][j] = tmp;
+                        unsigned char tmp        = values[x * (NbCol - 2 * PRE) + y][i];
+                        values[x * (NbCol - 2 * PRE) + y][i] = values[x * (NbCol - 2 * PRE) + y][j];
+                        values[x * (NbCol - 2 * PRE) + y][j] = tmp;
                     }
                 }
             }
 
             printf("-----------\n");
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][0]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][1]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][2]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][3]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][4]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][5]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][6]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][7]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][8]);
-            printf("%d\n", values[(x - 1) * NbCol + (y - 1)][9]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][0]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][1]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][2]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][3]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][4]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][5]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][6]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][7]);
+            printf("%d\n", values[x * (NbCol - 2 * PRE) + y][8]);
         }
     }
 }
